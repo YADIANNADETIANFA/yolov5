@@ -1,0 +1,40 @@
+# Hyperparameters for COCO training from scratch
+# python train.py --batch 40 --cfg yolov5m.yaml --weights '' --data coco.yaml --img 640 --epochs 300
+# See tutorials for hyperparameter evolution https://github.com/ultralytics/yolov5#tutorials
+
+
+# 训练相关参数
+lr0: 0.01  # initial learning rate (SGD=1E-2, Adam=1E-3)  初始学习率
+lrf: 0.2  # final OneCycleLR learning rate (lr0 * lrf)  最终学习率，  lr0 * lrf
+momentum: 0.937  # SGD momentum/Adam beta1    动量
+weight_decay: 0.0005  # optimizer weight decay 5e-4     optimizer权重衰减系数
+warmup_epochs: 3.0  # warmup epochs (fractions ok)    前三个epoch进行warmup
+warmup_momentum: 0.8  # warmup initial momentum     warmup初始动量
+warmup_bias_lr: 0.1  # warmup initial bias lr       warmup初始bias学习率
+
+# 损失函数相关参数
+box: 0.05  # box loss gain    box iou损失系数
+cls: 0.5  # cls loss gain     cls分类损失系数
+cls_pw: 1.0  # cls BCELoss positive_weight    cls BCELoss正样本权重
+obj: 1.0  # obj loss gain (scale with pixels)
+obj_pw: 1.0  # obj BCELoss positive_weight    obj BCELoss正样本权重
+fl_gamma: 0.0  # focal loss gamma (efficientDet default gamma=1.5)
+
+# 其他几个参数
+iou_t: 0.20  # IoU training threshold     应该是很久以前使用的一个参数，因为那个时候筛选正负样本是靠iou来筛选的，这个iou_t应该就是筛选正负样本用的iou阈值，现在都用宽高比来筛选了，所以这个参数现在也没什么用了
+anchor_t: 4.0  # anchor-multiple threshold      anchor的长宽比阈值（长:宽 = 4:1） 用于k-means中计算 bpr和aat
+# anchors: 3  # anchors per output layer (0 to ignore)
+
+# 数据增强相关参数
+hsv_h: 0.015  # image HSV-Hue augmentation (fraction)     hsv增强系数 色调
+hsv_s: 0.7  # image HSV-Saturation augmentation (fraction)    hsv增强系数 饱和度
+hsv_v: 0.4  # image HSV-Value augmentation (fraction)     hsv增强系数 亮度
+degrees: 0.0  # image rotation (+/- deg)              random_perspective增强系数 旋转角度
+translate: 0.1  # image translation (+/- fraction)    random_perspective增强系数 平移
+scale: 0.5  # image scale (+/- gain)        random_perspective增强系数 图像缩放
+shear: 0.0  # image shear (+/- deg)         random_perspective增强系数 图像剪切
+perspective: 0.0  # image perspective (+/- fraction), range 0-0.001     random_perspective增强系数 透明度
+flipud: 0.0  # image flip up-down (probability)       上下翻转数据增强。默认为0.0，不使用
+fliplr: 0.5  # image flip left-right (probability)    左右翻转数据增强，默认为0.5，一半机率使用
+mosaic: 1.0  # image mosaic (probability)             mosaic数据增强
+mixup: 0.0  # image mixup (probability)               mixup数据增强。默认为0.0，不使用    https://arxiv.org/pdf/1710.09412.pdf
