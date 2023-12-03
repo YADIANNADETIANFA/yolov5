@@ -51,6 +51,102 @@ python detect.py
 
 
 
+网络训练过程中，输出文件介绍
+
+> **labels_correlogram.jpg**
+>
+> + 所有gt框xywh多变量联合分布直方图
+>
+> + 出自`utils/plots.py中的plot_labels()`
+>
+> + 于wandb可见，于本地项目目录可见
+>
+> **labels.jpg**
+>
+> + 所有gt框的类别分布、所有gt框形状、所有gt框的xy直方图、所有gt框的wh直方图
+>
+> + 出自`utils/plots.py中的plot_labels()`
+>
+> + 于wandb可见，于本地项目目录可见
+>
+> **train_batch0/1/2.png**
+>
+> + 训练阶段，前三个batch的图片分别拼接成一个4*4的mosaic大图并保存，并标注出gt框
+>
+> + 出自`train.py中的plot_images()`
+>
+> + 于wandb可见，于本地项目目录可见
+>
+> **results.txt**
+>
+> + 记录训练结果和验证结果
+> + 出自`train.py`
+> + 于本地项目目录可见
+>
+> **test_batch0/1/2_labels.jpg**
+>
+> + final_epoch，val验证时，前三个batch的图片及其gt_labels，拼成一个4*4大图并保存
+> + 出自`test.py`中的`Thread(target=plot_images, args=(img, targets, paths, f, names), daemon=True).start()`
+> + 于本地项目目录可见
+>
+> **test_batch0/1/2_pred.jpg**
+>
+> + final_epoch，val验证时，前三个batch的图片及其pred的结果，拼成一个4*4大图并保存
+> + 出自`test.py`中的`Thread(target=plot_images, args=(img, output_to_target(out), paths, f, names), daemon=True).start()`
+> + 于wandb可见，于本地项目目录可见
+>
+> **PR_curve.png**
+>
+> + final_epoch，val验证时，pr曲线
+> + 出自`test.py`中的`p, r, ap, f1, ap_class = ap_per_class(*stats, plot=plots, save_dir=save_dir, names=names)`中的`plot_pr_curve(px, py, ap, Path(save_dir) / 'PR_curve.png', names)`
+> + 于wandb可见，于本地项目目录可见
+>
+> **F1_curve.png**
+>
+> + 同上，F1_conf曲线
+>
+> **P_curve.png**
+>
+> + 同上，P_conf曲线
+>
+> **R_curve.png**
+>
+> + 同上，R_conf曲线
+>
+> **confusion_matrix.png**
+>
+> + final_epoch，val验证时，混淆矩阵
+> + 出自`test.py`中的`confusion_matrix.plot(save_dir=save_dir, names=list(names.values()))`
+> + 于wandb可见，于本地项目目录可见
+>
+> **result.png**
+>
+> + 训练结束后，将result.txt中的某些列的数据(10/14)，展示出来
+> + 出自`train.py`中的`plot_results()`
+> + 于wandb可见，于本地项目目录可见
+>
+> 
+>
+> 其他内容：
+>
+> **所有gt框类别分布：train.py中的`tb_writer.add_histogram('classes', c, 0)`**
+>
+> + 于tensorboard可见
+>
+> **Bounding Box Debugger/Images**
+>
+> + 在`test.py`中进行测试时，当前的测试效果
+> + 出自`test.py`
+> + 于wandb可见
+>
+> **train系列、val_metrics系列、val系列、param_x系列**
+>
+> + 在`train.py`中，记录train和val时的各项指标变化
+> + 出自`train.py`
+> + 于tensorboard和wandb可见
+
+
+
 网络效果展示
 
 <img src="https://icarustypora.oss-cn-shenzhen.aliyuncs.com/AI/yolo/yolov5_%E7%BD%91%E7%BB%9C%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA_person.png" alt="yolov5_网络效果展示_person" style="zoom: 25%;" />
