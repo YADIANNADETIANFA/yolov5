@@ -101,6 +101,10 @@ github仓库
 
 > http://www.icarus.wiki/archives/60bde475.html
 
+wandb训练记录
+
+> https://wandb.ai/icarus_athena/YOLOv5/overview?workspace=user-icarus_athena
+
 
 
 参考链接
